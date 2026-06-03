@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios'; // 1. Importamos o Axios aqui
+import axios from 'axios'; 
 import './App.css';
 
 function App() {
@@ -9,7 +9,6 @@ function App() {
   const [descricaoPrato, setDescricaoPrato] = useState('');
   const [precoPrato, setPrecoPrato] = useState('');
 
-  // 2. Nossa função atualizada com Axios
   const salvarPrato = async (event) => {
     event.preventDefault();
 
@@ -21,21 +20,17 @@ function App() {
     };
 
     try {
-      // O Axios faz o POST de forma direta. Ele já entende que é JSON e já configura os Headers!
       await axios.post('http://localhost:8080/api/pratos', novoPrato);
 
       alert('Prato salvo com sucesso no banco de dados!');
       
-      // Limpa os campos
       setNomePrato('');
       setDescricaoPrato('');
       setPrecoPrato('');
 
     } catch (erro) {
       console.error("Erro na requisição:", erro);
-      
-      // O Axios é inteligente: se o Spring Boot devolver um Erro 400 (Bad Request),
-      // ele cai direto aqui no catch, e você pode acessar a mensagem exata do erro
+    
       if (erro.response) {
         alert(`Erro retornado pelo servidor: ${erro.response.data}`);
       } else {
@@ -113,8 +108,6 @@ function App() {
             <button type="submit" className="btn-primary">Salvar no Banco</button>
           </form>
         )}
-
-        {/* Mantenha aqui os formulários de usuários e pedidos que criamos antes */}
 
       </main>
     </div>
