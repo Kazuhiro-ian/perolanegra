@@ -1,117 +1,24 @@
-/* Reset básico */
+/* Reseta margens padrão do navegador */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  box-sizing: border-box;
 }
 
 body {
-  background-color: #f3f4f6;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f4f9;
 }
 
+/* Container que segura tudo */
 .app-container {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
 }
 
-/* Menu Lateral */
-.sidebar {
-  width: 260px;
-  background-color: #111827;
-  color: white;
-  display: flex;
-  flex-direction: column;
-}
-
-.sidebar-header {
-  padding: 24px;
-  border-bottom: 1px solid #1f2937;
-}
-
-.sidebar-nav {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-/* Transformamos os links em botões para facilitar o controle no React */
-.nav-button {
-  padding: 12px;
-  text-align: left;
-  background: none;
-  border: none;
-  color: white;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.2s;
-}
-
-.nav-button:hover {
-  background-color: #1f2937;
-}
-
-/* Classe para destacar qual menu está clicado */
-.nav-button.active {
-  background-color: #374151;
-  font-weight: bold;
-}
-
-/* Área Principal */
+/* Área principal onde as telas vão aparecer */
 .main-content {
-  flex: 1;
-  padding: 32px;
-  overflow-y: auto;
-}
-
-/* Estilos dos Formulários de Teste */
-.form-container {
-  background-color: white;
-  padding: 24px;
-  border-radius: 8px;
-  border: 1px solid #e5e7eb;
-  max-width: 500px; /* Limita a largura do formulário para não ficar esticado */
-}
-
-.form-container h2 {
-  margin-bottom: 24px;
-  color: #111827;
-}
-
-.form-group {
-  margin-bottom: 16px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-  color: #374151;
-  font-size: 14px;
-}
-
-.form-group input, .form-group select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-.btn-primary {
-  background-color: #2563eb;
-  color: white;
-  border: none;
-  padding: 12px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  width: 100%;
-  margin-top: 8px;
-}
-
-.btn-primary:hover {
-  background-color: #1d4ed8;
+  margin-left: 250px; /* Mesma largura da sidebar */
+  padding: 30px;
+  width: calc(100% - 250px);
 }

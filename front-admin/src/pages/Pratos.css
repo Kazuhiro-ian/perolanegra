@@ -1,0 +1,75 @@
+.pratos-container {
+  max-width: 800px;
+}
+
+.pratos-container h2 {
+  margin-bottom: 25px;
+  color: #1e1e2f;
+}
+
+.card-formulario {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.card-formulario h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #555;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.grupo-input {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.grupo-input label {
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #444;
+  font-size: 0.9rem;
+}
+
+.grupo-input input, 
+.grupo-input textarea {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.grupo-input textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.grupo-input input:focus, 
+.grupo-input textarea:focus {
+  outline: none;
+  border-color: #ff9800;
+  box-shadow: 0 0 0 2px rgba(255, 152, 0, 0.2);
+}
+
+.btn-salvar {
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.btn-salvar:hover {
+  background-color: #e68a00;
+}
