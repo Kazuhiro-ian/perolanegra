@@ -1,3 +1,6 @@
+/* =========================================================
+   Estilos do Container e Formulário
+   ========================================================= */
 .pratos-container {
   max-width: 800px;
 }
@@ -72,4 +75,106 @@
 
 .btn-salvar:hover {
   background-color: #e68a00;
+}
+
+/* =========================================================
+   Estilos da Listagem de Pratos (Cards)
+   ========================================================= */
+
+.lista-pratos-section {
+  margin-top: 40px;
+}
+
+.lista-pratos-section h3 {
+  color: #1e1e2f;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.mensagem-vazia {
+  color: #666;
+  font-style: italic;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Grid que coloca os cards lado a lado */
+.grid-pratos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Estilo individual de cada Card de Prato */
+.prato-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border-left: 4px solid #ff9800; 
+}
+
+.prato-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.prato-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.prato-card-header h4 {
+  margin: 0;
+  color: #333;
+  font-size: 1.2rem;
+  flex: 1;
+  padding-right: 10px;
+}
+
+/* Badge de Disponível / Esgotado */
+.badge-status {
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+
+.badge-status.ativo {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.badge-status.inativo {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.prato-card-descricao {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  flex-grow: 1;
+  margin-bottom: 15px;
+}
+
+.prato-card-footer {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 15px;
+}
+
+.prato-card-preco {
+  font-weight: 800;
+  color: #ff9800;
+  font-size: 1.25rem;
 }

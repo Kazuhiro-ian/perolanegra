@@ -1,24 +1,37 @@
-/* Reseta margens padrão do navegador */
+/* 1. Reset básico para remover margens padrão do navegador que quebram o layout */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #f4f4f9;
+body, html {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f4f6f8; /* Uma cor de fundo suave para o painel */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-/* Container que segura tudo */
+/* 2. O container principal que envolve tudo */
 .app-container {
   display: flex;
   min-height: 100vh;
+  width: 100%;
 }
 
-/* Área principal onde as telas vão aparecer */
+/* 3. A área de conteúdo principal onde as rotas aparecem */
 .main-content {
-  margin-left: 250px; /* Mesma largura da sidebar */
-  padding: 30px;
+  /* * IMPORTANTE: Se a sua Sidebar tiver 'position: fixed' e 'width: 250px' 
+   * lá no Sidebar.css, esta margem empurra o conteúdo para não ficar escondido.
+   */
+  margin-left: 250px; 
+  
+  /* Garante que o conteúdo ocupe apenas o espaço que sobrou na tela */
   width: calc(100% - 250px);
+  
+  /* Espaçamento interno para os formulários e textos não colarem na borda */
+  padding: 30px; 
+  
+  /* Garante que a área principal tenha pelo menos a altura da tela */
+  min-height: 100vh;
 }
