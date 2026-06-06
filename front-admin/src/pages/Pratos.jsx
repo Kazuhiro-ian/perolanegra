@@ -1,137 +1,67 @@
-import { useState, useEffect } from 'react';
-import api from '../services/api';
+import React, { useState } from 'react';
 import './Pratos.css';
 
-function Pratos() {
-  const [nome, setNome] = useState('');
-  const [descricao, setDescricao] = useState('');
-  const [preco, setPreco] = useState('');
-  
-  // Novo estado para armazenar a lista de pratos vinda do banco
-  const [pratos, setPratos] = useState([]);
-
-  // useEffect roda a função carregarPratos assim que o componente é montado na tela
-  useEffect(() => {
-    carregarPratos();
-  }, []);
-
-  // Função que faz o GET no Spring Boot
-  const carregarPratos = async () => {
-    try {
-      const response = await api.get('/pratos');
-      setPratos(response.data);
-    } catch (error) {
-      console.error("Erro ao buscar pratos:", error);
-    }
-  };
-
-  const salvarPrato = async (e) => {
-    e.preventDefault();
-
-    try {
-      await api.post('/pratos', {
-        nome: nome,
-        descricao: descricao,
-        preco: parseFloat(preco)
-      });
-
-      alert('Prato cadastrado com sucesso!');
-      
-      // Limpa os campos
-      setNome('');
-      setDescricao('');
-      setPreco('');
-      
-      // Atualiza a lista exibida abaixo chamando o GET novamente
-      carregarPratos();
-      
-    } catch (error) {
-      console.error("Erro ao salvar prato:", error);
-      alert('Erro ao salvar o prato. Verifique se o back-end está rodando.');
-    }
-  };
-
-  // Função auxiliar para formatar o preço para Reais (R$)
-  const formatarMoeda = (valor) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
-    }).format(valor);
-  };
+const Pratos = () => {
+  // Dados fictícios para visualização do layout
+  const [pratos] = useState([
+    { id: 1, nome: 'Risoto de Cogumelos Selvagens', categoria: 'Prato Principal', preco: 'R$ 68,00', status: 'Ativo' },
+    { id: 2, nome: 'Tartare de Salmão com Avocado', categoria: 'Entrada', preco: 'R$ 52,00', status: 'Ativo' },
+    { id: 3, nome: 'Petit Gâteau 70% Cacau', categoria: 'Sobremesa', preco: 'R$ 32,00', status: 'Inativo' },
+  ]);
 
   return (
     <div className="pratos-container">
-      <h2>Gerenciar Pratos</h2>
-      
-      {/* Formulário de Cadastro */}
-      <div className="card-formulario">
-        <h3>Cadastrar Novo Prato</h3>
-        <form onSubmit={salvarPrato}>
-          <div className="grupo-input">
-            <label>Nome do Prato</label>
-            <input 
-              type="text" 
-              value={nome} 
-              onChange={(e) => setNome(e.target.value)} 
-              placeholder="Ex: Hambúrguer Artesanal"
-              required 
-            />
-          </div>
+      <header className="pratos-header">
+        <div>
+          <h1>Menu & Pratos</h1>
+          <p className="subtitle">Gerencie os itens disponíveis no cardápio do restaurante.</p>
+        </div>
+        <button className="btn-add">Adicionar Novo Item</button>
+      </header>
 
-          <div className="grupo-input">
-            <label>Descrição</label>
-            <textarea 
-              value={descricao} 
-              onChange={(e) => setDescricao(e.target.value)} 
-              placeholder="Ex: Pão brioche, blend 180g..."
-              required 
-            />
-          </div>
-
-          <div className="grupo-input">
-            <label>Preço (R$)</label>
-            <input 
-              type="number" 
-              step="0.01" 
-              value={preco} 
-              onChange={(e) => setPreco(e.target.value)} 
-              placeholder="Ex: 35.50"
-              required 
-            />
-          </div>
-
-          <button type="submit" className="btn-salvar">Salvar Prato</button>
-        </form>
+      <div className="filter-bar">
+        <input type="text" placeholder="Filtrar por nome..." className="search-input" />
+        <select className="filter-select">
+          <option value="">Todas as Categorias</option>
+          <option value="entradas">Entradas</option>
+          <option value="principais">Pratos Principais</option>
+          <option value="sobremesas">Sobremesas</option>
+        </select>
       </div>
 
-      {/* Seção de Listagem dos Pratos */}
-      <div className="lista-pratos-section">
-        <h3>Pratos Cadastrados</h3>
-        
-        {pratos.length === 0 ? (
-          <p className="mensagem-vazia">Nenhum prato cadastrado ainda.</p>
-        ) : (
-          <div className="grid-pratos">
+      <div className="table-wrapper">
+        <table className="minimal-table">
+          <thead>
+            <tr>
+              <th>Nome do Prato</th>
+              <th>Categoria</th>
+              <th>Preço</th>
+              <th>Status</th>
+              <th className="text-right">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
             {pratos.map((prato) => (
-              <div key={prato.id} className="prato-card">
-                <div className="prato-card-header">
-                  <h4>{prato.nome}</h4>
-                  <span className={`badge-status ${prato.disponivel ? 'ativo' : 'inativo'}`}>
-                    {prato.disponivel ? 'Disponível' : 'Esgotado'}
+              <tr key={prato.id}>
+                <td className="font-bold">{prato.nome}</td>
+                <td>{prato.categoria}</td>
+                <td>{prato.preco}</td>
+                <td>
+                  <span className={`status-tag ${prato.status.toLowerCase()}`}>
+                    {prato.status}
                   </span>
-                </div>
-                <p className="prato-card-descricao">{prato.descricao}</p>
-                <div className="prato-card-footer">
-                  <span className="prato-card-preco">{formatarMoeda(prato.preco)}</span>
-                </div>
-              </div>
+                </td>
+                <td className="text-right actions-cell">
+                  <button className="btn-table-action">Editar</button>
+                  <button className="btn-table-action delete">Remover</button>
+                </td>
+              </tr>
             ))}
-          </div>
-        )}
+          </tbody>
+        </table>
       </div>
-
     </div>
   );
-}
+};
 
 export default Pratos;
