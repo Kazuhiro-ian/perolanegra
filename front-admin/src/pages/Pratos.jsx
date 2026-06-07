@@ -1,14 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import api from '../services/api'; // Certifique-se de que o caminho da importação está correto
 import './Pratos.css';
 
 const Pratos = () => {
-  // Dados fictícios para visualização do layout
-  const [pratos] = useState([
-    { id: 1, nome: 'Risoto de Cogumelos Selvagens', categoria: 'Prato Principal', preco: 'R$ 68,00', status: 'Ativo' },
-    { id: 2, nome: 'Tartare de Salmão com Avocado', categoria: 'Entrada', preco: 'R$ 52,00', status: 'Ativo' },
-    { id: 3, nome: 'Petit Gâteau 70% Cacau', categoria: 'Sobremesa', preco: 'R$ 32,00', status: 'Inativo' },
-  ]);
+  // 1. Declaração dos estados (States)
+  const [pratos, setPratos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  // 2. UseEffect para carregar os dados assim que a tela abrir
+  useEffect(() => {
+    carregarPratos();
+  }, []);
+
+  // 3. Função que busca os dados do backend (Spring Boot)
+  const carregarPratos = async () => {
+    try {
+      const response = await api.get('/api/pratos'); 
+      setPratos(response.data); 
+    } catch (error) {
+      console.error('Erro ao buscar os pratos:', error);
+      alert('Não foi possível carregar o menu.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 4. Tela de carregamento enquanto espera o backend responder
+  if (loading) {
+    return <div style={{ padding: '3rem', color: '#000' }}>Carregando dados do banco...</div>;
+  }
+
+  // 5. Renderização da interface principal
   return (
     <div className="pratos-container">
       <header className="pratos-header">
@@ -45,10 +67,11 @@ const Pratos = () => {
               <tr key={prato.id}>
                 <td className="font-bold">{prato.nome}</td>
                 <td>{prato.categoria}</td>
-                <td>{prato.preco}</td>
+                {/* Ajuste o prato.preco dependendo de como está no seu Prato.java (se é BigDecimal, etc) */}
+                <td>R$ {prato.preco}</td>
                 <td>
-                  <span className={`status-tag ${prato.status.toLowerCase()}`}>
-                    {prato.status}
+                  <span className={`status-tag ${prato.status ? prato.status.toLowerCase() : 'indefinido'}`}>
+                    {prato.status || 'Ativo'}
                   </span>
                 </td>
                 <td className="text-right actions-cell">
